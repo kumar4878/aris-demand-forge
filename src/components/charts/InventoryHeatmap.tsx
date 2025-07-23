@@ -48,7 +48,7 @@ const InventoryHeatmap = () => {
       <div className="flex items-center gap-4 text-sm">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 bg-red-200 rounded"></div>
-          <span>< 2 weeks</span>
+          <span>&lt; 2 weeks</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 bg-yellow-200 rounded"></div>
@@ -56,7 +56,7 @@ const InventoryHeatmap = () => {
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 bg-green-200 rounded"></div>
-          <span>> 4 weeks</span>
+          <span>&gt; 4 weeks</span>
         </div>
       </div>
 
@@ -73,8 +73,8 @@ const InventoryHeatmap = () => {
 
           {/* Data Rows */}
           {regions.map(region => (
-            <>
-              <div key={`${region}-label`} className="p-2 text-sm font-medium text-muted-foreground flex items-center">
+            <React.Fragment key={region}>
+              <div className="p-2 text-sm font-medium text-muted-foreground flex items-center">
                 {region}
               </div>
               {skus.map(sku => {
@@ -98,7 +98,7 @@ const InventoryHeatmap = () => {
                   </Button>
                 );
               })}
-            </>
+            </React.Fragment>
           ))}
         </div>
       </div>
