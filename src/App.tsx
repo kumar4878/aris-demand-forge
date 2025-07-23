@@ -1,9 +1,16 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import Layout from "./components/Layout";
+import Dashboard from "./pages/Dashboard";
+import BaselineForecast from "./pages/BaselineForecast";
+import BottomUpForecast from "./pages/BottomUpForecast";
+import ForecastFinalization from "./pages/ForecastFinalization";
+import InventoryPlanning from "./pages/InventoryPlanning";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -14,11 +21,17 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <SidebarProvider>
+          <Routes>
+            <Route path="/" element={<Layout><Dashboard /></Layout>} />
+            <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
+            <Route path="/forecast/baseline" element={<Layout><BaselineForecast /></Layout>} />
+            <Route path="/forecast/bottom-up" element={<Layout><BottomUpForecast /></Layout>} />
+            <Route path="/forecast/finalization" element={<Layout><ForecastFinalization /></Layout>} />
+            <Route path="/inventory/planning" element={<Layout><InventoryPlanning /></Layout>} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </SidebarProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

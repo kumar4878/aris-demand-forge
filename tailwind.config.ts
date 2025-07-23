@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,12 +62,34 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// ARIS specific colors
+				teal: {
+					DEFAULT: '#0d9488',
+					50: '#f0fdfa',
+					100: '#ccfbf1',
+					500: '#0d9488',
+					600: '#0f766e',
+					700: '#115e59'
+				},
+				slate: {
+					DEFAULT: '#64748b',
+					400: '#94a3b8',
+					500: '#64748b',
+					600: '#475569',
+					700: '#334155'
 				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
+				sm: 'calc(var(--radius) - 4px)',
+				'2xl': '1rem'
+			},
+			fontFamily: {
+				'inter': ['Inter', 'sans-serif'],
+				'space-grotesk': ['Space Grotesk', 'sans-serif'],
+				'sans': ['Inter', 'sans-serif']
 			},
 			keyframes: {
 				'accordion-down': {
