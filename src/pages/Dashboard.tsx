@@ -12,7 +12,8 @@ import {
   ArrowUpRight, 
   ArrowDownRight,
   Clock,
-  CheckCircle
+  CheckCircle,
+  Bell
 } from "lucide-react";
 import ForecastAccuracyChart from "@/components/charts/ForecastAccuracyChart";
 import InventoryHeatmap from "@/components/charts/InventoryHeatmap";
