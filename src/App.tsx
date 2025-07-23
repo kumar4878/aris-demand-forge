@@ -29,6 +29,9 @@ const App = () => (
             <Route path="/forecast/bottom-up" element={<Layout><BottomUpForecast /></Layout>} />
             <Route path="/forecast/finalization" element={<Layout><ForecastFinalization /></Layout>} />
             <Route path="/inventory/planning" element={<Layout><InventoryPlanning /></Layout>} />
+            <Route path="/inventory/alerts" element={<Layout><InventoryPlanning /></Layout>} />
+            <Route path="/reports" element={<Layout><Dashboard /></Layout>} />
+            <Route path="/settings" element={<Layout><Dashboard /></Layout>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </SidebarProvider>
