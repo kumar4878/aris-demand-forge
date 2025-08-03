@@ -3,54 +3,96 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ARIS Design System */
+/* ARIS Swiss Design System */
 @layer base {
   :root {
+    /* Swiss Design Base Colors */
     --background: 0 0% 100%;
-    --foreground: 215 25% 27%;
+    --foreground: 215 25% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 27%;
+    --card-foreground: 215 25% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 27%;
+    --popover-foreground: 215 25% 15%;
 
-    /* Primary: Teal #0d9488 */
-    --primary: 172 85% 32%;
+    /* ARIS Agriculture Brand Colors */
+    --primary: 142 76% 36%; /* Agriculture Green */
     --primary-foreground: 0 0% 100%;
+    --primary-light: 142 76% 46%;
+    --primary-dark: 142 76% 26%;
 
-    /* Secondary: Slate #64748b */
-    --secondary: 215 25% 47%;
+    --secondary: 217 91% 60%; /* Sky Blue */
     --secondary-foreground: 0 0% 100%;
+    --secondary-light: 217 91% 70%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215 16.3% 46.9%;
+    --accent: 45 93% 58%; /* Golden Yellow */
+    --accent-foreground: 215 25% 15%;
 
-    --accent: 172 85% 95%;
-    --accent-foreground: 172 85% 32%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 8% 46%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 172 85% 32%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 142 76% 36%;
 
-    --radius: 1rem;
+    --radius: 0.75rem;
 
+    /* Enterprise Sidebar */
     --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 215 25% 27%;
-    --sidebar-primary: 172 85% 32%;
+    --sidebar-foreground: 215 25% 15%;
+    --sidebar-primary: 142 76% 36%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 172 85% 95%;
-    --sidebar-accent-foreground: 172 85% 32%;
+    --sidebar-accent: 142 76% 95%;
+    --sidebar-accent-foreground: 142 76% 36%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 172 85% 32%;
+    --sidebar-ring: 142 76% 36%;
 
-    /* Success/Warning colors for inventory status */
+    /* Status & Alert Colors */
     --success: 142 76% 36%;
-    --warning: 38 92% 50%;
+    --warning: 45 93% 58%;
     --danger: 0 84% 60%;
+    --info: 217 91% 60%;
+
+    /* AI Insights Theme */
+    --ai-primary: 262 83% 58%;
+    --ai-secondary: 262 83% 68%;
+    --ai-background: 262 83% 97%;
+    --ai-foreground: 262 83% 15%;
+
+    /* Chart Colors */
+    --chart-1: 142 76% 36%;
+    --chart-2: 217 91% 60%;
+    --chart-3: 45 93% 58%;
+    --chart-4: 262 83% 58%;
+    --chart-5: 0 84% 60%;
+    --chart-6: 173 58% 39%;
+
+    /* Enterprise Grays */
+    --gray-50: 220 14% 96%;
+    --gray-100: 220 14% 93%;
+    --gray-200: 220 13% 87%;
+    --gray-300: 220 9% 75%;
+    --gray-400: 220 8% 56%;
+    --gray-500: 220 8% 46%;
+    --gray-600: 220 12% 34%;
+    --gray-700: 220 16% 22%;
+    --gray-800: 215 25% 15%;
+    --gray-900: 224 84% 8%;
+
+    /* Shadows for Swiss Design */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+    /* Transitions */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dark {
@@ -91,10 +133,24 @@
 
   body {
     @apply bg-background text-foreground font-inter antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 
+  /* Swiss Design Typography */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-space-grotesk;
+    @apply font-space-grotesk font-semibold tracking-tight;
+  }
+
+  h1 { @apply text-3xl lg:text-4xl; }
+  h2 { @apply text-2xl lg:text-3xl; }
+  h3 { @apply text-xl lg:text-2xl; }
+  h4 { @apply text-lg lg:text-xl; }
+  h5 { @apply text-base lg:text-lg; }
+  h6 { @apply text-sm lg:text-base; }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
   }
 }
 
@@ -110,6 +166,18 @@
 
   .animate-scale-in {
     animation: scaleIn 0.2s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out;
+  }
+
+  .animate-bounce-in {
+    animation: bounceIn 0.6s ease-out;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.5s ease-out;
   }
 }
 
@@ -144,7 +212,202 @@
   }
 }
 
-/* Inventory status colors */
-.coverage-low { @apply bg-red-100 text-red-800 border-red-200; }
-.coverage-medium { @apply bg-yellow-100 text-yellow-800 border-yellow-200; }
-.coverage-high { @apply bg-green-100 text-green-800 border-green-200; }
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Swiss Design Components */
+@layer components {
+  /* AI Insights Panel */
+  .ai-insights {
+    @apply bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950/30 dark:to-blue-950/30 
+           border border-purple-200 dark:border-purple-800 rounded-lg p-6 shadow-sm;
+  }
+
+  .ai-insights-header {
+    @apply flex items-center gap-3 mb-4;
+  }
+
+  .ai-insights-content {
+    @apply text-sm text-purple-800 dark:text-purple-200;
+  }
+
+  /* Enterprise KPI Cards */
+  .kpi-card {
+    @apply bg-card border border-border rounded-xl p-6 shadow-sm hover:shadow-md 
+           transition-all duration-300 hover:scale-[1.02] cursor-pointer;
+  }
+
+  .kpi-card-header {
+    @apply flex items-center justify-between mb-4;
+  }
+
+  .kpi-card-title {
+    @apply text-sm font-medium text-muted-foreground;
+  }
+
+  .kpi-card-value {
+    @apply text-3xl font-bold text-foreground mb-2;
+  }
+
+  .kpi-card-change {
+    @apply flex items-center gap-1 text-sm;
+  }
+
+  /* Status Indicators */
+  .status-critical {
+    @apply bg-red-50 text-red-700 border border-red-200 rounded-full px-3 py-1 text-xs font-semibold;
+  }
+
+  .status-warning {
+    @apply bg-yellow-50 text-yellow-700 border border-yellow-200 rounded-full px-3 py-1 text-xs font-semibold;
+  }
+
+  .status-success {
+    @apply bg-green-50 text-green-700 border border-green-200 rounded-full px-3 py-1 text-xs font-semibold;
+  }
+
+  .status-info {
+    @apply bg-blue-50 text-blue-700 border border-blue-200 rounded-full px-3 py-1 text-xs font-semibold;
+  }
+
+  /* Enterprise Tables */
+  .enterprise-table {
+    @apply w-full border-collapse border border-border rounded-lg overflow-hidden;
+  }
+
+  .enterprise-table th {
+    @apply bg-muted/50 px-4 py-3 text-left text-sm font-semibold text-muted-foreground 
+           border-b border-border;
+  }
+
+  .enterprise-table td {
+    @apply px-4 py-3 text-sm border-b border-border;
+  }
+
+  .enterprise-table tbody tr:hover {
+    @apply bg-muted/20 transition-colors duration-150;
+  }
+
+  /* Modern Buttons */
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-lg bg-primary text-primary-foreground 
+           hover:bg-primary/90 h-10 px-4 py-2 text-sm font-medium transition-colors duration-200
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring 
+           disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-lg bg-secondary text-secondary-foreground 
+           hover:bg-secondary/80 h-10 px-4 py-2 text-sm font-medium transition-colors duration-200
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring 
+           disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center rounded-lg border border-input 
+           bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 
+           text-sm font-medium transition-colors duration-200
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring 
+           disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  /* Glass Morphism */
+  .glass {
+    @apply bg-white/70 dark:bg-black/40 backdrop-blur-lg border border-white/20 dark:border-white/10;
+  }
+
+  /* Gradient Backgrounds */
+  .gradient-primary {
+    @apply bg-gradient-to-r from-primary to-primary-light;
+  }
+
+  .gradient-secondary {
+    @apply bg-gradient-to-r from-secondary to-secondary-light;
+  }
+
+  .gradient-hero {
+    @apply bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5;
+  }
+
+  /* Chart Containers */
+  .chart-container {
+    @apply bg-card border border-border rounded-lg p-6 shadow-sm;
+  }
+
+  .chart-header {
+    @apply flex items-center justify-between mb-6;
+  }
+
+  .chart-title {
+    @apply text-lg font-semibold text-foreground;
+  }
+
+  .chart-description {
+    @apply text-sm text-muted-foreground;
+  }
+}
+
+/* Dark mode adjustments */
+.dark {
+  .ai-insights {
+    @apply from-purple-950/30 to-blue-950/30 border-purple-800;
+  }
+
+  .status-critical {
+    @apply bg-red-950/30 text-red-300 border-red-800;
+  }
+
+  .status-warning {
+    @apply bg-yellow-950/30 text-yellow-300 border-yellow-800;
+  }
+
+  .status-success {
+    @apply bg-green-950/30 text-green-300 border-green-800;
+  }
+
+  .status-info {
+    @apply bg-blue-950/30 text-blue-300 border-blue-800;
+  }
+}
+
+/* Inventory status colors - Legacy compatibility */
+.coverage-low { @apply status-critical; }
+.coverage-medium { @apply status-warning; }
+.coverage-high { @apply status-success; }
