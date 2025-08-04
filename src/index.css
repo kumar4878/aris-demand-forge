@@ -385,26 +385,24 @@
 }
 
 /* Dark mode adjustments */
-.dark {
-  .ai-insights {
-    @apply from-purple-950/30 to-blue-950/30 border-purple-800;
-  }
+.dark .ai-insights {
+  @apply from-purple-950/30 to-blue-950/30 border-purple-800;
+}
 
-  .status-critical {
-    @apply bg-red-950/30 text-red-300 border-red-800;
-  }
+.dark .status-critical {
+  @apply bg-red-950/30 text-red-300 border-red-800;
+}
 
-  .status-warning {
-    @apply bg-yellow-950/30 text-yellow-300 border-yellow-800;
-  }
+.dark .status-warning {
+  @apply bg-yellow-950/30 text-yellow-300 border-yellow-800;
+}
 
-  .status-success {
-    @apply bg-green-950/30 text-green-300 border-green-800;
-  }
+.dark .status-success {
+  @apply bg-green-950/30 text-green-300 border-green-800;
+}
 
-  .status-info {
-    @apply bg-blue-950/30 text-blue-300 border-blue-800;
-  }
+.dark .status-info {
+  @apply bg-blue-950/30 text-blue-300 border-blue-800;
 }
 
 /* Inventory status colors - Legacy compatibility */
