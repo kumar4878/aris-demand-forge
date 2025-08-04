@@ -1,8 +1,9 @@
 
 import { ReactNode } from "react";
-import { Sidebar, SidebarContent, SidebarHeader, SidebarFooter } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import AppSidebar from "./AppSidebar";
 import TopNavigation from "./TopNavigation";
+import { motion } from "framer-motion";
 
 interface LayoutProps {
   children: ReactNode;
@@ -10,17 +11,24 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="min-h-screen w-full bg-background">
-      <div className="flex min-h-screen w-full">
-        <AppSidebar />
-        <div className="flex-1 flex flex-col">
-          <TopNavigation />
-          <main className="flex-1 p-6 bg-gray-50/50">
-            {children}
-          </main>
+    <SidebarProvider>
+      <div className="min-h-screen w-full bg-gradient-hero">
+        <div className="flex min-h-screen w-full">
+          <AppSidebar />
+          <div className="flex-1 flex flex-col">
+            <TopNavigation />
+            <motion.main 
+              className="flex-1 p-8 bg-background/50 backdrop-blur-sm"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {children}
+            </motion.main>
+          </div>
         </div>
       </div>
-    </div>
+    </SidebarProvider>
   );
 };
 

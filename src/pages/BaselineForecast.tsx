@@ -1,301 +1,372 @@
-
-import React, { useState } from "react";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Brain, TrendingUp, BarChart, Download, RefreshCw, Info, Target, Zap } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart as RechartsBarChart, Bar, ComposedChart } from 'recharts';
+import { ModernTable } from "@/components/ui/modern-table";
+import { ConfidenceGauge } from "@/components/ui/confidence-gauge";
+import { ForecastModelSelector } from "@/components/ui/forecast-model-selector";
+import { 
+  TrendingUp, 
+  TrendingDown, 
+  Minus, 
+  Brain, 
+  FileText, 
+  Download, 
+  Info,
+  CheckCircle,
+  RefreshCw
+} from "lucide-react";
+import {
+  ComposedChart,
+  Line,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+import { useToast } from "@/hooks/use-toast";
+
+const historicalData = [
+  { month: "Jan 23", historical: 245000, forecast: 238000, variance: -2.9 },
+  { month: "Feb 23", historical: 267000, forecast: 275000, variance: 3.0 },
+  { month: "Mar 23", historical: 298000, forecast: 312000, variance: 4.7 },
+  { month: "Apr 23", historical: 321000, forecast: 334000, variance: 4.0 },
+  { month: "May 23", historical: 356000, forecast: 348000, variance: -2.2 },
+  { month: "Jun 23", historical: 378000, forecast: 389000, variance: 2.9 },
+  { month: "Jul 23", historical: 401000, forecast: 425000, variance: 6.0 },
+  { month: "Aug 23", historical: 434000, forecast: 441000, variance: 1.6 },
+  { month: "Sep 23", historical: 467000, forecast: 478000, variance: 2.4 },
+  { month: "Oct 23", historical: 489000, forecast: 495000, variance: 1.2 },
+  { month: "Nov 23", historical: 512000, forecast: 523000, variance: 2.1 },
+  { month: "Dec 23", historical: 534000, forecast: 548000, variance: 2.6 },
+];
+
+const forecastData = [
+  {
+    id: "1",
+    sku: "Herbicide-H41",
+    region: "North",
+    month: "Jan 2025",
+    aiForecast: 45000,
+    confidence: 94,
+    trend: "up",
+    category: "Herbicides",
+    lastMonth: 42000,
+    variance: 7.1,
+  },
+  {
+    id: "2",
+    sku: "Fungicide-F23", 
+    region: "South",
+    month: "Jan 2025",
+    aiForecast: 38000,
+    confidence: 87,
+    trend: "stable",
+    category: "Fungicides",
+    lastMonth: 37500,
+    variance: 1.3,
+  },
+  {
+    id: "3",
+    sku: "Insecticide-I15",
+    region: "East", 
+    month: "Jan 2025",
+    aiForecast: 52000,
+    confidence: 91,
+    trend: "up",
+    category: "Insecticides",
+    lastMonth: 48000,
+    variance: 8.3,
+  },
+  {
+    id: "4",
+    sku: "Fertilizer-N12",
+    region: "West",
+    month: "Jan 2025", 
+    aiForecast: 67000,
+    confidence: 78,
+    trend: "down",
+    category: "Fertilizers",
+    lastMonth: 72000,
+    variance: -6.9,
+  },
+];
 
 const BaselineForecast = () => {
   const [selectedModel, setSelectedModel] = useState("ai");
   const [activeTab, setActiveTab] = useState("sku");
-
-  const historicalData = [
-    { month: 'Jan 2023', sales: 850, forecast: 920 },
-    { month: 'Feb 2023', sales: 1200, forecast: 1150 },
-    { month: 'Mar 2023', sales: 980, forecast: 1050 },
-    { month: 'Apr 2023', sales: 1350, forecast: 1300 },
-    { month: 'May 2023', sales: 1500, forecast: 1450 },
-    { month: 'Jun 2023', sales: 1100, forecast: 1200 },
-    { month: 'Jul 2023', sales: 1600, forecast: 1550 },
-    { month: 'Aug 2023', sales: 1400, forecast: 1380 },
-    { month: 'Sep 2023', sales: 1250, forecast: 1300 },
-    { month: 'Oct 2023', sales: 1800, forecast: 1750 },
-    { month: 'Nov 2023', sales: 2100, forecast: 2050 },
-    { month: 'Dec 2023', sales: 1950, forecast: 2000 },
-  ];
-
-  const forecastData = [
-    { id: '1', sku: 'SKU-001', region: 'North', month: 'Jan 2025', aiForecast: 1850, confidence: 92, trend: 'up' },
-    { id: '2', sku: 'SKU-002', region: 'North', month: 'Jan 2025', aiForecast: 1200, confidence: 88, trend: 'stable' },
-    { id: '3', sku: 'SKU-003', region: 'South', month: 'Jan 2025', aiForecast: 950, confidence: 76, trend: 'down' },
-    { id: '4', sku: 'SKU-001', region: 'East', month: 'Jan 2025', aiForecast: 1650, confidence: 94, trend: 'up' },
-    { id: '5', sku: 'SKU-002', region: 'West', month: 'Jan 2025', aiForecast: 1400, confidence: 85, trend: 'up' },
-    { id: '6', sku: 'SKU-003', region: 'North', month: 'Feb 2025', aiForecast: 1100, confidence: 69, trend: 'stable' },
-  ];
-
-  const modelStats = {
-    linear: { accuracy: 78, confidence: 72, processing: 'Fast' },
-    arima: { accuracy: 82, confidence: 78, processing: 'Medium' },
-    ai: { accuracy: 92, confidence: 88, processing: 'Slow' }
-  };
+  const [isGenerating, setIsGenerating] = useState(false);
+  const { toast } = useToast();
 
   const getConfidenceBadge = (confidence: number) => {
-    if (confidence >= 85) return <Badge className="bg-green-100 text-green-800 border-green-300">High</Badge>;
-    if (confidence >= 70) return <Badge className="bg-yellow-100 text-yellow-800 border-yellow-300">Medium</Badge>;
-    return <Badge variant="destructive">Low</Badge>;
+    if (confidence >= 90) return <Badge className="bg-success/10 text-success border-success/20">High ({confidence}%)</Badge>;
+    if (confidence >= 75) return <Badge className="bg-warning/10 text-warning border-warning/20">Medium ({confidence}%)</Badge>;
+    return <Badge className="bg-destructive/10 text-destructive border-destructive/20">Low ({confidence}%)</Badge>;
   };
 
   const getTrendIcon = (trend: string) => {
     switch (trend) {
-      case 'up': return <TrendingUp className="h-4 w-4 text-green-600" />;
-      case 'down': return <TrendingUp className="h-4 w-4 text-red-600 rotate-180" />;
-      default: return <div className="h-4 w-4 bg-gray-400 rounded-full" />;
+      case "up":
+        return <TrendingUp className="h-4 w-4 text-success" />;
+      case "down":
+        return <TrendingDown className="h-4 w-4 text-destructive" />;
+      default:
+        return <Minus className="h-4 w-4 text-muted-foreground" />;
     }
   };
 
+  const handleGenerateForecast = async () => {
+    setIsGenerating(true);
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    setIsGenerating(false);
+    
+    toast({
+      title: "Forecast Generated",
+      description: "AI baseline forecast has been successfully generated with 94% accuracy.",
+    });
+  };
+
+  const columns = [
+    {
+      accessorKey: "sku",
+      header: "SKU",
+      cell: ({ row }: any) => (
+        <div className="flex flex-col">
+          <span className="font-medium">{row.getValue("sku")}</span>
+          <span className="text-xs text-muted-foreground">{row.original.category}</span>
+        </div>
+      ),
+    },
+    {
+      accessorKey: "region",
+      header: "Region",
+      cell: ({ row }: any) => (
+        <Badge variant="outline">{row.getValue("region")}</Badge>
+      ),
+    },
+    {
+      accessorKey: "aiForecast",
+      header: "AI Forecast",
+      cell: ({ row }: any) => (
+        <span className="font-mono font-semibold">
+          {row.getValue("aiForecast").toLocaleString()}
+        </span>
+      ),
+    },
+    {
+      accessorKey: "confidence",
+      header: "Confidence",
+      cell: ({ row }: any) => getConfidenceBadge(row.getValue("confidence")),
+    },
+    {
+      accessorKey: "trend",
+      header: "Trend",
+      cell: ({ row }: any) => getTrendIcon(row.getValue("trend")),
+    },
+  ];
+
   return (
-    <div className="space-y-6 animate-fade-in">
+    <motion.div 
+      className="space-y-8"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       {/* Header */}
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-space-grotesk font-bold text-foreground">
-              Baseline Forecast
-            </h1>
-            <p className="text-muted-foreground text-lg">
-              AI-powered forecasts built on your historic strength.
-            </p>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm">
-              <RefreshCw className="h-4 w-4 mr-2" />
-              Refresh Data
-            </Button>
-            <Button variant="outline" size="sm">
-              <Download className="h-4 w-4 mr-2" />
-              Export Forecast
-            </Button>
-          </div>
+      <div className="flex justify-between items-start">
+        <div>
+          <h1 className="text-4xl font-bold tracking-tight">Baseline Forecasting</h1>
+          <p className="text-xl text-muted-foreground mt-2">
+            Generate AI-powered baseline forecasts using historical sales data
+          </p>
+        </div>
+        
+        <div className="flex gap-3">
+          <Button variant="outline" size="lg">
+            <FileText className="h-4 w-4 mr-2" />
+            Save Draft
+          </Button>
+          <Button size="lg">
+            <Download className="h-4 w-4 mr-2" />
+            Export to Excel
+          </Button>
         </div>
       </div>
 
-      {/* Model Selection Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {Object.entries(modelStats).map(([model, stats]) => (
-          <Card 
-            key={model}
-            className={`cursor-pointer transition-all duration-300 hover:shadow-lg ${
-              selectedModel === model ? 'ring-2 ring-primary bg-primary/5' : 'hover:bg-accent/50'
-            }`}
-            onClick={() => setSelectedModel(model)}
-          >
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  {model === 'ai' ? <Brain className="h-5 w-5 text-primary" /> : 
-                   model === 'arima' ? <BarChart className="h-5 w-5 text-blue-600" /> :
-                   <TrendingUp className="h-5 w-5 text-green-600" />}
-                  <h3 className="font-semibold capitalize">{model === 'ai' ? 'AI Neural Network' : model.toUpperCase()}</h3>
-                </div>
-                {selectedModel === model && <Zap className="h-4 w-4 text-primary" />}
-              </div>
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Accuracy</span>
-                  <span className="font-medium">{stats.accuracy}%</span>
-                </div>
-                <Progress value={stats.accuracy} className="h-2" />
-                <div className="flex justify-between text-xs text-muted-foreground">
-                  <span>Confidence: {stats.confidence}%</span>
-                  <span>Speed: {stats.processing}</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      {/* Alert Banner */}
+      <Alert className="border-info/20 bg-info/5">
+        <Info className="h-4 w-4 text-info" />
+        <AlertDescription className="text-info">
+          AI Forecast: +14% surge expected due to favorable rainfall pattern. 
+          <strong className="ml-1">Model confidence: 94%</strong>
+        </AlertDescription>
+      </Alert>
 
-      {/* Main Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Historical Analysis Chart */}
-        <Card className="border-0 shadow-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <BarChart className="h-5 w-5 text-primary" />
-              Historical vs Forecast Accuracy
-            </CardTitle>
-            <CardDescription>
-              5-year sales trend with AI forecast overlay
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
+      {/* Model Selection */}
+      <Card className="enterprise-card">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Brain className="h-5 w-5 text-primary" />
+            Forecast Model Selection
+          </CardTitle>
+          <CardDescription>
+            Choose the forecasting model that best fits your requirements
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ForecastModelSelector 
+            selectedModel={selectedModel}
+            onModelChange={setSelectedModel}
+          />
+          
+          <div className="mt-6 flex justify-between items-center">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <CheckCircle className="h-4 w-4 text-success" />
+              Model ready for forecasting
+            </div>
+            
+            <Button 
+              onClick={handleGenerateForecast}
+              disabled={isGenerating}
+              size="lg"
+            >
+              {isGenerating ? (
+                <>
+                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                  Generating...
+                </>
+              ) : (
+                <>
+                  <Brain className="h-4 w-4 mr-2" />
+                  Generate Forecast
+                </>
+              )}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Chart and Metrics */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="lg:col-span-3">
+          <Card className="chart-container">
+            <CardHeader>
+              <CardTitle>Historical vs Forecast Accuracy</CardTitle>
+              <CardDescription>
+                AI Forecast based on 24 months historical data and weather patterns
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={400}>
                 <ComposedChart data={historicalData}>
-                  <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
-                  <XAxis 
-                    dataKey="month" 
-                    className="text-sm"
-                    axisLine={false}
-                    tickLine={false}
-                  />
-                  <YAxis 
-                    className="text-sm"
-                    axisLine={false}
-                    tickLine={false}
-                  />
-                  <Tooltip 
-                    content={({ active, payload, label }) => {
-                      if (active && payload && payload.length) {
-                        return (
-                          <div className="bg-background p-3 border rounded-lg shadow-lg">
-                            <p className="font-medium">{label}</p>
-                            <p className="text-sm text-blue-600">
-                              Actual Sales: {payload[0]?.value?.toLocaleString()}
-                            </p>
-                            <p className="text-sm text-green-600">
-                              AI Forecast: {payload[1]?.value?.toLocaleString()}
-                            </p>
-                          </div>
-                        );
-                      }
-                      return null;
-                    }}
-                  />
-                  <Bar 
-                    dataKey="sales" 
-                    fill="hsl(var(--primary))" 
-                    opacity={0.7}
-                    name="Actual Sales"
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="forecast" 
-                    stroke="hsl(142, 76%, 36%)" 
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="month" />
+                  <YAxis tickFormatter={(value) => `${(value / 1000).toFixed(0)}K`} />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="historical" fill="hsl(var(--primary))" name="Historical Sales" />
+                  <Line
+                    type="monotone"
+                    dataKey="forecast"
+                    stroke="hsl(var(--success))"
                     strokeWidth={3}
-                    dot={{ fill: "hsl(142, 76%, 36%)", strokeWidth: 2, r: 4 }}
                     name="AI Forecast"
                   />
                 </ComposedChart>
               </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
 
-        {/* Model Performance Metrics */}
-        <Card className="border-0 shadow-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Target className="h-5 w-5 text-primary" />
-              Model Performance
-            </CardTitle>
-            <CardDescription>
-              Real-time accuracy and confidence metrics
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">Overall Accuracy</span>
-                <span className="text-2xl font-bold text-primary">92.4%</span>
-              </div>
-              <Progress value={92.4} className="h-3" />
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">Prediction Confidence</span>
-                <span className="text-2xl font-bold text-green-600">88.7%</span>
-              </div>
-              <Progress value={88.7} className="h-3" />
-            </div>
-
-            <div className="grid grid-cols-2 gap-4 pt-4 border-t">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-foreground">156</div>
-                <div className="text-sm text-muted-foreground">SKUs Analyzed</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-foreground">4</div>
-                <div className="text-sm text-muted-foreground">Regions Covered</div>
-              </div>
-            </div>
-
-            <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-lg">
-              <div className="flex items-start gap-2">
-                <Info className="h-4 w-4 text-blue-600 mt-0.5" />
-                <div className="text-sm text-blue-800 dark:text-blue-200">
-                  <strong>Model Insights:</strong> The AI model shows strong performance with seasonal adjustments and trend recognition. Consider this baseline for your territory planning.
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Model Performance</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <ConfidenceGauge value={94} label="Overall Accuracy" />
+              
+              <div className="space-y-4">
+                <div>
+                  <div className="flex justify-between mb-2">
+                    <span className="text-sm font-medium">Confidence</span>
+                    <span className="text-sm font-bold">91%</span>
+                  </div>
+                  <Progress value={91} className="h-2" />
                 </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Dataset Insights</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">SKUs Analyzed</span>
+                  <span className="font-bold">2,847</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Regions Covered</span>
+                  <span className="font-bold">28</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Data Points</span>
+                  <span className="font-bold">1.2M</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
 
       {/* Forecast Data Table */}
-      <Card className="border-0 shadow-sm">
+      <Card className="enterprise-card">
         <CardHeader>
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle>Forecast Data Grid</CardTitle>
-              <CardDescription>
-                Detailed AI-generated forecasts with confidence indicators
-              </CardDescription>
-            </div>
-            <Tabs value={activeTab} onValueChange={setActiveTab}>
-              <TabsList>
-                <TabsTrigger value="sku">By SKU</TabsTrigger>
-                <TabsTrigger value="region">By Region</TabsTrigger>
-              </TabsList>
-            </Tabs>
-          </div>
+          <CardTitle>Detailed Forecast Analysis</CardTitle>
+          <CardDescription>
+            Comprehensive forecast breakdown with confidence intervals
+          </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="overflow-x-auto">
-            <Table>
-              <TableHeader>
-                <TableRow className="bg-muted/50">
-                  <TableHead className="font-semibold">SKU</TableHead>
-                  <TableHead className="font-semibold">Region</TableHead>
-                  <TableHead className="font-semibold">Month</TableHead>
-                  <TableHead className="font-semibold">AI Forecast</TableHead>
-                  <TableHead className="font-semibold">Confidence</TableHead>
-                  <TableHead className="font-semibold">Trend</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {forecastData.map((row) => (
-                  <TableRow key={row.id} className="hover:bg-muted/20">
-                    <TableCell className="font-medium">{row.sku}</TableCell>
-                    <TableCell>{row.region}</TableCell>
-                    <TableCell>{row.month}</TableCell>
-                    <TableCell className="font-mono">{row.aiForecast.toLocaleString()}</TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        {getConfidenceBadge(row.confidence)}
-                        <span className="text-sm text-muted-foreground">{row.confidence}%</span>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        {getTrendIcon(row.trend)}
-                        <span className="text-sm capitalize">{row.trend}</span>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            <TabsList className="grid w-full grid-cols-2 mb-6">
+              <TabsTrigger value="sku">By Product (SKU)</TabsTrigger>
+              <TabsTrigger value="region">By Region</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="sku">
+              <ModernTable
+                data={forecastData}
+                columns={columns}
+                enableSearch={true}
+                enableFilters={true}
+                pageSize={10}
+              />
+            </TabsContent>
+            
+            <TabsContent value="region">
+              <ModernTable
+                data={forecastData}
+                columns={columns}
+                enableSearch={true}
+                enableFilters={true}
+                pageSize={10}
+              />
+            </TabsContent>
+          </Tabs>
         </CardContent>
       </Card>
-    </div>
+    </motion.div>
   );
 };
 

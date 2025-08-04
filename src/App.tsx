@@ -4,7 +4,6 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { SidebarProvider } from "@/components/ui/sidebar";
 import Layout from "./components/Layout";
 import Dashboard from "./pages/Dashboard";
 import BaselineForecast from "./pages/BaselineForecast";
@@ -21,20 +20,18 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <SidebarProvider>
-          <Routes>
-            <Route path="/" element={<Layout><Dashboard /></Layout>} />
-            <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
-            <Route path="/forecast/baseline" element={<Layout><BaselineForecast /></Layout>} />
-            <Route path="/forecast/bottom-up" element={<Layout><BottomUpForecast /></Layout>} />
-            <Route path="/forecast/finalization" element={<Layout><ForecastFinalization /></Layout>} />
-            <Route path="/inventory/planning" element={<Layout><InventoryPlanning /></Layout>} />
-            <Route path="/inventory/alerts" element={<Layout><InventoryPlanning /></Layout>} />
-            <Route path="/reports" element={<Layout><Dashboard /></Layout>} />
-            <Route path="/settings" element={<Layout><Dashboard /></Layout>} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </SidebarProvider>
+        <Routes>
+          <Route path="/" element={<Layout><Dashboard /></Layout>} />
+          <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
+          <Route path="/forecast/baseline" element={<Layout><BaselineForecast /></Layout>} />
+          <Route path="/forecast/bottom-up" element={<Layout><BottomUpForecast /></Layout>} />
+          <Route path="/forecast/finalization" element={<Layout><ForecastFinalization /></Layout>} />
+          <Route path="/inventory/planning" element={<Layout><InventoryPlanning /></Layout>} />
+          <Route path="/inventory/alerts" element={<Layout><InventoryPlanning /></Layout>} />
+          <Route path="/reports" element={<Layout><Dashboard /></Layout>} />
+          <Route path="/settings" element={<Layout><Dashboard /></Layout>} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
