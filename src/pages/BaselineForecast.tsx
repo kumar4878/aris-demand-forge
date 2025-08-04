@@ -348,8 +348,8 @@ const BaselineForecast = () => {
               <ModernTable
                 data={forecastData}
                 columns={columns}
-                enableSearch={true}
-                enableFilters={true}
+                searchable={true}
+                filterable={true}
                 pageSize={10}
               />
             </TabsContent>
@@ -358,8 +358,8 @@ const BaselineForecast = () => {
               <ModernTable
                 data={forecastData}
                 columns={columns}
-                enableSearch={true}
-                enableFilters={true}
+                searchable={true}
+                filterable={true}
                 pageSize={10}
               />
             </TabsContent>
