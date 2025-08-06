@@ -11,7 +11,8 @@ import {
   Target,
   CheckCircle,
   Calendar,
-  AlertTriangle
+  AlertTriangle,
+  MapPin
 } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 
@@ -78,6 +79,11 @@ const navigationItems = [
         icon: AlertTriangle,
       },
     ],
+  },
+  {
+    title: "Crop GIS",
+    url: "/crop-gis",
+    icon: MapPin,
   },
   {
     title: "Reports",

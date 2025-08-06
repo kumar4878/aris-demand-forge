@@ -10,6 +10,7 @@ import BaselineForecast from "./pages/BaselineForecast";
 import BottomUpForecast from "./pages/BottomUpForecast";
 import ForecastFinalization from "./pages/ForecastFinalization";
 import InventoryPlanning from "./pages/InventoryPlanning";
+import CropGIS from "./pages/CropGIS";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/forecast/finalization" element={<Layout><ForecastFinalization /></Layout>} />
           <Route path="/inventory/planning" element={<Layout><InventoryPlanning /></Layout>} />
           <Route path="/inventory/alerts" element={<Layout><InventoryPlanning /></Layout>} />
+          <Route path="/crop-gis" element={<Layout><CropGIS /></Layout>} />
           <Route path="/reports" element={<Layout><Dashboard /></Layout>} />
           <Route path="/settings" element={<Layout><Dashboard /></Layout>} />
           <Route path="*" element={<NotFound />} />
