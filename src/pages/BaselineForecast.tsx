@@ -153,7 +153,7 @@ const BaselineForecast = () => {
     },
     {
       accessorKey: "aiForecast",
-      header: "AI Forecast",
+      header: "Baseline Forecast",
       cell: ({ row }: any) => (
         <span className="font-mono font-semibold">
           {row.getValue("aiForecast").toLocaleString()}

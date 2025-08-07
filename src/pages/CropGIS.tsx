@@ -19,14 +19,14 @@ const CropGIS = () => {
             Real-time crop monitoring, field analysis, and agricultural intelligence mapping
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="w-full overflow-hidden rounded-lg border">
+        <CardContent className="p-0">
+          <div className="w-full overflow-hidden rounded-lg">
             <iframe
               src="https://piyushgupta135-crop-gis.hf.space"
               frameBorder="0"
               width="100%"
-              height="1200"
-              className="w-full"
+              height="800"
+              className="w-full border-0"
               title="Crop GIS Application"
             />
           </div>

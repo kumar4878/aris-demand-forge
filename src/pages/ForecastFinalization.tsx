@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
 import { 
@@ -19,13 +20,18 @@ import {
   TrendingUp,
   TrendingDown,
   Users,
-  Shield
+  Shield,
+  Edit2,
+  Check,
+  X
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const ForecastFinalization = () => {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("compare");
+  const [editingRow, setEditingRow] = useState<string | null>(null);
+  const [editValue, setEditValue] = useState("");
 
   const compareData = [
     { 
@@ -118,6 +124,25 @@ const ForecastFinalization = () => {
       description: "Territory Manager has been notified to review and resubmit the forecast.",
       variant: "destructive"
     });
+  };
+
+  const handleEdit = (rowId: string, currentValue: number) => {
+    setEditingRow(rowId);
+    setEditValue(currentValue.toString());
+  };
+
+  const handleSaveEdit = (rowId: string) => {
+    toast({
+      title: "Forecast Updated",
+      description: `Final forecast for ${rowId} has been updated to ${editValue}`,
+    });
+    setEditingRow(null);
+    setEditValue("");
+  };
+
+  const handleCancelEdit = () => {
+    setEditingRow(null);
+    setEditValue("");
   };
 
   const getActionIcon = (type: string) => {
@@ -249,7 +274,36 @@ const ForecastFinalization = () => {
                         <TableCell className="font-medium">{row.sku}</TableCell>
                         <TableCell className="font-mono text-muted-foreground">{row.aiForecast.toLocaleString()}</TableCell>
                         <TableCell className="font-mono">{row.bottomUp.toLocaleString()}</TableCell>
-                        <TableCell className="font-mono font-bold">{row.finalForecast.toLocaleString()}</TableCell>
+                        <TableCell className="font-mono font-bold">
+                          {editingRow === row.id ? (
+                            <div className="flex items-center gap-2">
+                              <Input
+                                value={editValue}
+                                onChange={(e) => setEditValue(e.target.value)}
+                                className="w-24 h-8 text-sm"
+                                type="number"
+                              />
+                              <Button variant="ghost" size="sm" onClick={() => handleSaveEdit(row.sku)}>
+                                <Check className="h-4 w-4 text-green-600" />
+                              </Button>
+                              <Button variant="ghost" size="sm" onClick={handleCancelEdit}>
+                                <X className="h-4 w-4 text-red-600" />
+                              </Button>
+                            </div>
+                          ) : (
+                            <div className="flex items-center gap-2">
+                              {row.finalForecast.toLocaleString()}
+                              <Button 
+                                variant="ghost" 
+                                size="sm" 
+                                onClick={() => handleEdit(row.id, row.finalForecast)}
+                                className="p-1 h-6 w-6"
+                              >
+                                <Edit2 className="h-3 w-3" />
+                              </Button>
+                            </div>
+                          )}
+                        </TableCell>
                         <TableCell>{getVarianceIndicator(row.variance)}</TableCell>
                         <TableCell>{getStatusBadge(row.status)}</TableCell>
                         <TableCell>
