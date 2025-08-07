@@ -52,50 +52,46 @@ const forecastData = [
   {
     id: "1",
     sku: "SKU 01",
-    region: "North",
+    region: "Region1",
     month: "Jan 2025",
-    aiForecast: 45000,
+    aiForecast: 1850,
     confidence: 94,
     trend: "up",
-    category: "Herbicides",
-    lastMonth: 42000,
-    variance: 7.1,
+    lastMonth: 1750,
+    variance: 5.7,
   },
   {
     id: "2",
     sku: "SKU 02", 
-    region: "South",
+    region: "Region2",
     month: "Jan 2025",
-    aiForecast: 38000,
+    aiForecast: 1200,
     confidence: 87,
     trend: "stable",
-    category: "Fungicides",
-    lastMonth: 37500,
-    variance: 1.3,
+    lastMonth: 1180,
+    variance: 1.7,
   },
   {
     id: "3",
     sku: "SKU 03",
-    region: "East", 
+    region: "Region3", 
     month: "Jan 2025",
-    aiForecast: 52000,
+    aiForecast: 950,
     confidence: 91,
     trend: "up",
-    category: "Insecticides",
-    lastMonth: 48000,
-    variance: 8.3,
+    lastMonth: 900,
+    variance: 5.6,
   },
   {
     id: "4",
     sku: "SKU 04",
-    region: "West",
+    region: "Region4",
     month: "Jan 2025", 
-    aiForecast: 67000,
+    aiForecast: 1650,
     confidence: 78,
     trend: "down",
-    category: "Fertilizers",
-    lastMonth: 72000,
-    variance: -6.9,
+    lastMonth: 1750,
+    variance: -5.7,
   },
 ];
 
@@ -138,10 +134,14 @@ const BaselineForecast = () => {
       accessorKey: "sku",
       header: "SKU",
       cell: ({ row }: any) => (
-        <div className="flex flex-col">
-          <span className="font-medium">{row.getValue("sku")}</span>
-          <span className="text-xs text-muted-foreground">{row.original.category}</span>
-        </div>
+        <span className="font-medium">{row.getValue("sku")}</span>
+      ),
+    },
+    {
+      accessorKey: "month",
+      header: "Month",
+      cell: ({ row }: any) => (
+        <span className="font-medium">{row.getValue("month")}</span>
       ),
     },
     {

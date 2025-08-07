@@ -84,6 +84,7 @@ const navigationItems = [
     title: "Crop GIS",
     url: "/crop-gis",
     icon: MapPin,
+    highlight: true,
   },
   {
     title: "Reports",
@@ -175,6 +176,8 @@ export default function AppSidebar() {
                         className={({ isActive }) =>
                           isActive
                             ? "bg-primary text-primary-foreground font-medium"
+                            : item.highlight
+                            ? "bg-accent text-accent-foreground font-medium border border-primary/20"
                             : "hover:bg-accent/50"
                         }
                       >

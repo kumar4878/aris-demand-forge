@@ -11,6 +11,7 @@ interface ForecastRow {
   id: string;
   sku: string;
   month: string;
+  region: string;
   fieldForecast: number | null;
   aiForecast: number;
   variance: number;
@@ -18,11 +19,10 @@ interface ForecastRow {
 }
 
 const mockData: ForecastRow[] = [
-  { id: '1', sku: 'SKU 01', month: 'Jan 2025', fieldForecast: 1200, aiForecast: 1000, variance: 20, remarks: '' },
-  { id: '2', sku: 'SKU 02', month: 'Jan 2025', fieldForecast: null, aiForecast: 850, variance: 0, remarks: '' },
-  { id: '3', sku: 'SKU 03', month: 'Jan 2025', fieldForecast: 600, aiForecast: 800, variance: -25, remarks: 'Lower demand expected due to competition' },
-  { id: '4', sku: 'SKU 01', month: 'Feb 2025', fieldForecast: 1100, aiForecast: 1050, variance: 4.8, remarks: '' },
-  { id: '5', sku: 'SKU 02', month: 'Feb 2025', fieldForecast: 900, aiForecast: 870, variance: 3.4, remarks: '' },
+  { id: '1', sku: 'SKU 01', month: 'Jan 2025', region: 'Region1', fieldForecast: 1850, aiForecast: 1850, variance: 0, remarks: '' },
+  { id: '2', sku: 'SKU 02', month: 'Jan 2025', region: 'Region2', fieldForecast: 1200, aiForecast: 1200, variance: 0, remarks: '' },
+  { id: '3', sku: 'SKU 03', month: 'Jan 2025', region: 'Region3', fieldForecast: 950, aiForecast: 950, variance: 0, remarks: '' },
+  { id: '4', sku: 'SKU 04', month: 'Jan 2025', region: 'Region4', fieldForecast: 1650, aiForecast: 1650, variance: 0, remarks: '' },
 ];
 
 const EditableForecastTable = () => {
@@ -71,6 +71,7 @@ const EditableForecastTable = () => {
             <TableRow className="bg-muted/50">
               <TableHead className="font-semibold">SKU</TableHead>
               <TableHead className="font-semibold">Month</TableHead>
+              <TableHead className="font-semibold">Region</TableHead>
               <TableHead className="font-semibold">Field Forecast</TableHead>
               <TableHead className="font-semibold">Baseline Forecast</TableHead>
               <TableHead className="font-semibold">Variance</TableHead>
@@ -82,6 +83,7 @@ const EditableForecastTable = () => {
               <TableRow key={row.id} className="hover:bg-muted/20">
                 <TableCell className="font-medium">{row.sku}</TableCell>
                 <TableCell>{row.month}</TableCell>
+                <TableCell><Badge variant="outline">{row.region}</Badge></TableCell>
                 <TableCell className="relative">
                   <div className="flex items-center gap-2">
                     <Input
