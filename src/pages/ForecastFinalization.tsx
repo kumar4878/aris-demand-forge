@@ -37,14 +37,14 @@ const ForecastFinalization = () => {
     { 
       id: '1', 
       sku: 'SKU 01', 
-      region: 'Region1',
+      region: 'Region 1',
       month: 'Jan 2025',
       aiForecast: 1850, 
-      bottomUp: 1850, 
-      finalForecast: 1850, 
-      variance: 0.0, 
+      bottomUp: 1750, 
+      finalForecast: 1750, 
+      variance: -5.4, 
       status: 'pending',
-      remarks: 'Market expansion expected in Q2',
+      remarks: 'Lower demand expected due to weather conditions',
       openingInv: 500,
       sales: 1400,
       liquidation: 100
@@ -52,14 +52,14 @@ const ForecastFinalization = () => {
     { 
       id: '2', 
       sku: 'SKU 02', 
-      region: 'Region2',
+      region: 'Region 1',
       month: 'Jan 2025',
       aiForecast: 1200, 
-      bottomUp: 1200, 
-      finalForecast: 1200, 
-      variance: 0.0, 
+      bottomUp: 1100, 
+      finalForecast: 1100, 
+      variance: -8.3, 
       status: 'approved',
-      remarks: 'Seasonal adjustment applied',
+      remarks: 'Market competition from new entrants',
       openingInv: 300,
       sales: 950,
       liquidation: 50
@@ -67,14 +67,14 @@ const ForecastFinalization = () => {
     { 
       id: '3', 
       sku: 'SKU 03', 
-      region: 'Region3',
+      region: 'Region 1',
       month: 'Jan 2025',
       aiForecast: 950, 
-      bottomUp: 950, 
-      finalForecast: 950, 
-      variance: 0.0, 
+      bottomUp: 1200, 
+      finalForecast: 1200, 
+      variance: 26.3, 
       status: 'review',
-      remarks: 'High variance requires ZSM approval',
+      remarks: 'High demand from major distributor confirmed',
       openingInv: 400,
       sales: 850,
       liquidation: 75
@@ -82,7 +82,7 @@ const ForecastFinalization = () => {
     { 
       id: '4', 
       sku: 'SKU 04', 
-      region: 'Region4',
+      region: 'Region 1',
       month: 'Jan 2025',
       aiForecast: 1650, 
       bottomUp: 1650, 
@@ -285,7 +285,6 @@ const ForecastFinalization = () => {
                       <TableHead className="font-semibold">Baseline Forecast</TableHead>
                       <TableHead className="font-semibold">Bottom-Up</TableHead>
                       <TableHead className="font-semibold">Final Forecast</TableHead>
-                      <TableHead className="font-semibold">Current Inventory</TableHead>
                       <TableHead className="font-semibold">Variance</TableHead>
                       <TableHead className="font-semibold">Status</TableHead>
                       <TableHead className="font-semibold">Action</TableHead>
@@ -328,13 +327,8 @@ const ForecastFinalization = () => {
                                </Button>
                              </div>
                            )}
-                         </TableCell>
-                         <TableCell className="font-mono text-sm">
-                           <div className="text-xs text-muted-foreground">
-                             {row.openingInv} - {row.sales} - {row.liquidation} = {row.openingInv - row.sales - row.liquidation}
-                           </div>
-                         </TableCell>
-                         <TableCell>{getVarianceIndicator(row.variance)}</TableCell>
+                          </TableCell>
+                          <TableCell>{getVarianceIndicator(row.variance)}</TableCell>
                          <TableCell>{getStatusBadge(row.status)}</TableCell>
                          <TableCell>
                            <Button variant="ghost" size="sm">
@@ -426,6 +420,7 @@ const ForecastFinalization = () => {
       {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center bg-muted/30 p-4 rounded-lg">
         <div className="text-sm text-muted-foreground">
+          <p className="font-medium text-foreground mb-1">Current inventory = Opening inv - Sales - Liquidation</p>
           <p>Last review: <span className="font-medium">Today at 2:30 PM</span></p>
           <p>Pending approvals: <span className="font-medium text-orange-600">4 SKUs</span></p>
         </div>

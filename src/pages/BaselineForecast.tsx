@@ -52,7 +52,7 @@ const forecastData = [
   {
     id: "1",
     sku: "SKU 01",
-    region: "Region1",
+    region: "Region 1",
     month: "Jan 2025",
     aiForecast: 1850,
     confidence: 94,
@@ -63,7 +63,7 @@ const forecastData = [
   {
     id: "2",
     sku: "SKU 02", 
-    region: "Region2",
+    region: "Region 1",
     month: "Jan 2025",
     aiForecast: 1200,
     confidence: 87,
@@ -74,7 +74,7 @@ const forecastData = [
   {
     id: "3",
     sku: "SKU 03",
-    region: "Region3", 
+    region: "Region 1", 
     month: "Jan 2025",
     aiForecast: 950,
     confidence: 91,
@@ -85,7 +85,7 @@ const forecastData = [
   {
     id: "4",
     sku: "SKU 04",
-    region: "Region4",
+    region: "Region 1",
     month: "Jan 2025", 
     aiForecast: 1650,
     confidence: 78,

@@ -19,10 +19,10 @@ interface ForecastRow {
 }
 
 const mockData: ForecastRow[] = [
-  { id: '1', sku: 'SKU 01', month: 'Jan 2025', region: 'Region1', fieldForecast: 1850, aiForecast: 1850, variance: 0, remarks: '' },
-  { id: '2', sku: 'SKU 02', month: 'Jan 2025', region: 'Region2', fieldForecast: 1200, aiForecast: 1200, variance: 0, remarks: '' },
-  { id: '3', sku: 'SKU 03', month: 'Jan 2025', region: 'Region3', fieldForecast: 950, aiForecast: 950, variance: 0, remarks: '' },
-  { id: '4', sku: 'SKU 04', month: 'Jan 2025', region: 'Region4', fieldForecast: 1650, aiForecast: 1650, variance: 0, remarks: '' },
+  { id: '1', sku: 'SKU 01', month: 'Jan 2025', region: 'Region 1', fieldForecast: 1750, aiForecast: 1850, variance: -5.4, remarks: 'Lower demand expected due to weather conditions' },
+  { id: '2', sku: 'SKU 02', month: 'Jan 2025', region: 'Region 1', fieldForecast: 1100, aiForecast: 1200, variance: -8.3, remarks: 'Market competition from new entrants' },
+  { id: '3', sku: 'SKU 03', month: 'Jan 2025', region: 'Region 1', fieldForecast: 1200, aiForecast: 950, variance: 26.3, remarks: 'High demand from major distributor confirmed' },
+  { id: '4', sku: 'SKU 04', month: 'Jan 2025', region: 'Region 1', fieldForecast: 1650, aiForecast: 1650, variance: 0, remarks: '' },
 ];
 
 const EditableForecastTable = () => {
