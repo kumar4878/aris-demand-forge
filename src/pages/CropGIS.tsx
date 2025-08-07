@@ -25,7 +25,7 @@ const CropGIS = () => {
               src="https://piyushgupta135-crop-gis.hf.space"
               frameBorder="0"
               width="100%"
-              height="600"
+              height="1200"
               className="w-full"
               title="Crop GIS Application"
             />
