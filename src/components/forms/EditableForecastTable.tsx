@@ -18,11 +18,11 @@ interface ForecastRow {
 }
 
 const mockData: ForecastRow[] = [
-  { id: '1', sku: 'SKU-001', month: 'Jan 2025', fieldForecast: 1200, aiForecast: 1000, variance: 20, remarks: '' },
-  { id: '2', sku: 'SKU-002', month: 'Jan 2025', fieldForecast: null, aiForecast: 850, variance: 0, remarks: '' },
-  { id: '3', sku: 'SKU-003', month: 'Jan 2025', fieldForecast: 600, aiForecast: 800, variance: -25, remarks: 'Lower demand expected due to competition' },
-  { id: '4', sku: 'SKU-001', month: 'Feb 2025', fieldForecast: 1100, aiForecast: 1050, variance: 4.8, remarks: '' },
-  { id: '5', sku: 'SKU-002', month: 'Feb 2025', fieldForecast: 900, aiForecast: 870, variance: 3.4, remarks: '' },
+  { id: '1', sku: 'SKU 01', month: 'Jan 2025', fieldForecast: 1200, aiForecast: 1000, variance: 20, remarks: '' },
+  { id: '2', sku: 'SKU 02', month: 'Jan 2025', fieldForecast: null, aiForecast: 850, variance: 0, remarks: '' },
+  { id: '3', sku: 'SKU 03', month: 'Jan 2025', fieldForecast: 600, aiForecast: 800, variance: -25, remarks: 'Lower demand expected due to competition' },
+  { id: '4', sku: 'SKU 01', month: 'Feb 2025', fieldForecast: 1100, aiForecast: 1050, variance: 4.8, remarks: '' },
+  { id: '5', sku: 'SKU 02', month: 'Feb 2025', fieldForecast: 900, aiForecast: 870, variance: 3.4, remarks: '' },
 ];
 
 const EditableForecastTable = () => {
@@ -72,7 +72,7 @@ const EditableForecastTable = () => {
               <TableHead className="font-semibold">SKU</TableHead>
               <TableHead className="font-semibold">Month</TableHead>
               <TableHead className="font-semibold">Field Forecast</TableHead>
-              <TableHead className="font-semibold">AI Forecast</TableHead>
+              <TableHead className="font-semibold">Baseline Forecast</TableHead>
               <TableHead className="font-semibold">Variance</TableHead>
               <TableHead className="font-semibold min-w-[200px]">Remarks</TableHead>
             </TableRow>

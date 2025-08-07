@@ -51,7 +51,7 @@ const historicalData = [
 const forecastData = [
   {
     id: "1",
-    sku: "Herbicide-H41",
+    sku: "SKU 01",
     region: "North",
     month: "Jan 2025",
     aiForecast: 45000,
@@ -63,7 +63,7 @@ const forecastData = [
   },
   {
     id: "2",
-    sku: "Fungicide-F23", 
+    sku: "SKU 02", 
     region: "South",
     month: "Jan 2025",
     aiForecast: 38000,
@@ -75,7 +75,7 @@ const forecastData = [
   },
   {
     id: "3",
-    sku: "Insecticide-I15",
+    sku: "SKU 03",
     region: "East", 
     month: "Jan 2025",
     aiForecast: 52000,
@@ -87,7 +87,7 @@ const forecastData = [
   },
   {
     id: "4",
-    sku: "Fertilizer-N12",
+    sku: "SKU 04",
     region: "West",
     month: "Jan 2025", 
     aiForecast: 67000,

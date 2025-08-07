@@ -36,43 +36,63 @@ const ForecastFinalization = () => {
   const compareData = [
     { 
       id: '1', 
-      sku: 'SKU-001', 
+      sku: 'SKU 01', 
+      region: 'North',
+      month: 'Jan 2025',
       aiForecast: 1850, 
       bottomUp: 1950, 
       finalForecast: 1900, 
       variance: 5.4, 
       status: 'pending',
-      remarks: 'Market expansion expected in Q2'
+      remarks: 'Market expansion expected in Q2',
+      openingInv: 500,
+      sales: 1400,
+      liquidation: 100
     },
     { 
       id: '2', 
-      sku: 'SKU-002', 
+      sku: 'SKU 02', 
+      region: 'South',
+      month: 'Jan 2025',
       aiForecast: 1200, 
       bottomUp: 1100, 
       finalForecast: 1150, 
       variance: -4.2, 
       status: 'approved',
-      remarks: 'Seasonal adjustment applied'
+      remarks: 'Seasonal adjustment applied',
+      openingInv: 300,
+      sales: 950,
+      liquidation: 50
     },
     { 
       id: '3', 
-      sku: 'SKU-003', 
+      sku: 'SKU 03', 
+      region: 'East',
+      month: 'Jan 2025',
       aiForecast: 950, 
       bottomUp: 1200, 
       finalForecast: 1075, 
       variance: 26.3, 
       status: 'review',
-      remarks: 'High variance requires ZSM approval'
+      remarks: 'High variance requires ZSM approval',
+      openingInv: 400,
+      sales: 850,
+      liquidation: 75
     },
     { 
       id: '4', 
-      sku: 'SKU-004', 
+      sku: 'SKU 04', 
+      region: 'West',
+      month: 'Jan 2025',
       aiForecast: 1650, 
       bottomUp: 1580, 
       finalForecast: 1615, 
       variance: -4.2, 
       status: 'approved',
-      remarks: ''
+      remarks: '',
+      openingInv: 600,
+      sales: 1300,
+      liquidation: 120
     },
   ];
 
@@ -260,60 +280,70 @@ const ForecastFinalization = () => {
                   <TableHeader>
                     <TableRow className="bg-muted/50">
                       <TableHead className="font-semibold">SKU</TableHead>
-                      <TableHead className="font-semibold">AI Forecast</TableHead>
+                      <TableHead className="font-semibold">Region</TableHead>
+                      <TableHead className="font-semibold">Month</TableHead>
+                      <TableHead className="font-semibold">Baseline Forecast</TableHead>
                       <TableHead className="font-semibold">Bottom-Up</TableHead>
                       <TableHead className="font-semibold">Final Forecast</TableHead>
+                      <TableHead className="font-semibold">Current Inventory</TableHead>
                       <TableHead className="font-semibold">Variance</TableHead>
                       <TableHead className="font-semibold">Status</TableHead>
                       <TableHead className="font-semibold">Action</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {compareData.map((row) => (
-                      <TableRow key={row.id} className="hover:bg-muted/20">
-                        <TableCell className="font-medium">{row.sku}</TableCell>
-                        <TableCell className="font-mono text-muted-foreground">{row.aiForecast.toLocaleString()}</TableCell>
-                        <TableCell className="font-mono">{row.bottomUp.toLocaleString()}</TableCell>
-                        <TableCell className="font-mono font-bold">
-                          {editingRow === row.id ? (
-                            <div className="flex items-center gap-2">
-                              <Input
-                                value={editValue}
-                                onChange={(e) => setEditValue(e.target.value)}
-                                className="w-24 h-8 text-sm"
-                                type="number"
-                              />
-                              <Button variant="ghost" size="sm" onClick={() => handleSaveEdit(row.sku)}>
-                                <Check className="h-4 w-4 text-green-600" />
-                              </Button>
-                              <Button variant="ghost" size="sm" onClick={handleCancelEdit}>
-                                <X className="h-4 w-4 text-red-600" />
-                              </Button>
-                            </div>
-                          ) : (
-                            <div className="flex items-center gap-2">
-                              {row.finalForecast.toLocaleString()}
-                              <Button 
-                                variant="ghost" 
-                                size="sm" 
-                                onClick={() => handleEdit(row.id, row.finalForecast)}
-                                className="p-1 h-6 w-6"
-                              >
-                                <Edit2 className="h-3 w-3" />
-                              </Button>
-                            </div>
-                          )}
-                        </TableCell>
-                        <TableCell>{getVarianceIndicator(row.variance)}</TableCell>
-                        <TableCell>{getStatusBadge(row.status)}</TableCell>
-                        <TableCell>
-                          <Button variant="ghost" size="sm">
-                            <Eye className="h-4 w-4 mr-1" />
-                            Review
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                     {compareData.map((row) => (
+                       <TableRow key={row.id} className="hover:bg-muted/20">
+                         <TableCell className="font-medium">{row.sku}</TableCell>
+                         <TableCell className="font-medium">{row.region}</TableCell>
+                         <TableCell className="font-medium">{row.month}</TableCell>
+                         <TableCell className="font-mono text-muted-foreground">{row.aiForecast.toLocaleString()}</TableCell>
+                         <TableCell className="font-mono">{row.bottomUp.toLocaleString()}</TableCell>
+                         <TableCell className="font-mono font-bold">
+                           {editingRow === row.id ? (
+                             <div className="flex items-center gap-2">
+                               <Input
+                                 value={editValue}
+                                 onChange={(e) => setEditValue(e.target.value)}
+                                 className="w-24 h-8 text-sm"
+                                 type="number"
+                               />
+                               <Button variant="ghost" size="sm" onClick={() => handleSaveEdit(row.sku)}>
+                                 <Check className="h-4 w-4 text-green-600" />
+                               </Button>
+                               <Button variant="ghost" size="sm" onClick={handleCancelEdit}>
+                                 <X className="h-4 w-4 text-red-600" />
+                               </Button>
+                             </div>
+                           ) : (
+                             <div className="flex items-center gap-2">
+                               {row.finalForecast.toLocaleString()}
+                               <Button 
+                                 variant="ghost" 
+                                 size="sm" 
+                                 onClick={() => handleEdit(row.id, row.finalForecast)}
+                                 className="p-1 h-6 w-6"
+                               >
+                                 <Edit2 className="h-3 w-3" />
+                               </Button>
+                             </div>
+                           )}
+                         </TableCell>
+                         <TableCell className="font-mono text-sm">
+                           <div className="text-xs text-muted-foreground">
+                             {row.openingInv} - {row.sales} - {row.liquidation} = {row.openingInv - row.sales - row.liquidation}
+                           </div>
+                         </TableCell>
+                         <TableCell>{getVarianceIndicator(row.variance)}</TableCell>
+                         <TableCell>{getStatusBadge(row.status)}</TableCell>
+                         <TableCell>
+                           <Button variant="ghost" size="sm">
+                             <Eye className="h-4 w-4 mr-1" />
+                             Review
+                           </Button>
+                         </TableCell>
+                       </TableRow>
+                     ))}
                   </TableBody>
                 </Table>
               </div>

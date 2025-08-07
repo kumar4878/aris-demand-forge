@@ -150,7 +150,7 @@ const BottomUpForecast = () => {
         <CardHeader>
           <CardTitle className="text-lg font-space-grotesk">Forecast Entry</CardTitle>
           <CardDescription>
-            Enter or modify forecasts for each SKU. AI forecasts are provided as reference.
+            Enter or modify forecasts for each SKU. Baseline forecasts are provided as reference.
           </CardDescription>
         </CardHeader>
         <CardContent>
