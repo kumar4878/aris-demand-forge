@@ -420,7 +420,7 @@ const ForecastFinalization = () => {
       {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center bg-muted/30 p-4 rounded-lg">
         <div className="text-sm text-muted-foreground">
-          <p className="font-medium text-foreground mb-1">Current inventory = Opening inv - Sales - Liquidation</p>
+          <p className="font-medium text-foreground mb-1">Closing inventory = Opening inv + Sales - Liquidation</p>
           <p>Last review: <span className="font-medium">Today at 2:30 PM</span></p>
           <p>Pending approvals: <span className="font-medium text-orange-600">4 SKUs</span></p>
         </div>
